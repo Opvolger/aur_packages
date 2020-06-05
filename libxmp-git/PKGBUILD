@@ -5,10 +5,13 @@ pkgver=libxmp.4.4.1.r161.g92313f6f
 pkgrel=1
 pkgdesc="Libxmp is a library that renders module files to PCM data. It supports over 90 mainstream and obscure module formats."
 arch=('i686' 'x86_64' 'aarch64')
-url="https://github.com/cmatsuoka/libxmp"
+url="http://xmp.sourceforge.net/"
 license=('LGPL2.1')
-depends=('sdl' 'libvorbis' 'curl')
+depends=('sdl' 'libvorbis' 'curl' 'glibc')
+optdepends=('pulseaudio')
 makedepends=('git' 'make' 'autoconf')
+conflicts=('libxmp')
+provides=('libxmp')
 source=('git+https://github.com/cmatsuoka/libxmp.git')
 md5sums=('SKIP')
 
