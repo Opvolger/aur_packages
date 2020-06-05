@@ -1,0 +1,4 @@
+libxmp/*
+src/*
+pkg/*
+*.tar.xz
