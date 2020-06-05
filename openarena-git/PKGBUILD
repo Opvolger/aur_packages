@@ -16,12 +16,14 @@ depends=('sdl' 'libvorbis' 'curl' 'libxmp')
 optdepends=('openal: to silence SDL fallback warning')
 source=('git+https://github.com/OpenArena/engine.git'
         "http://download.tuxfamily.org/openarena/rel/${_relver}/openarena-${_openarenaver}.zip"
+        'openarena-runner.sh'
         'openarena.png'
         'openarena-server.png'
         'openarena.desktop'
         'openarena-server.desktop')
 sha512sums=('SKIP'
             '9fa4dabe8a3428dc3cbec97f3b4d20c04569c14cdd00b60e6391c6dd61e310f246ff5ec97e7549821b3d6f5f94b140eb5411a2ddd83dafcad66937b7f78ea8dd'
+            '3ea0d57070ba9e6652d704639823d4bcf9f1aa031836634d9418774392b69178ecc460284ed3e42668d968e3608d28545490f0f8763e6dc72015849d619a753b'
             'ef68f8eb6251c3424464702ff894a6b88b473a3f4c1512af613125f5e5a7124f268490a9f6042095ff5bb807817e1f302c80d21987a2ed178e680f993d70b6f1'
             '9e8c860fe8e9a6fefa9839907df6e74f11564daaa2bf12b4c261dec34d65917e7110a41aa7777f16d3842c8371b9e960468d75c439d8b815454feeb8c01ed6e6'
             '5acd934f451559ad68b76a4de4b132b9ead9542dd078df7c7489ce2b2774557d81c6405622e8090ced2ace5f05165af1ed5dee8674d3fef725cd633727c92538'
@@ -64,7 +66,7 @@ build() {
 
 package() {
   # create dirs
-  install -dm755 "${pkgdir}/usr/lib" "$pkgdir"/usr/share/pixmaps/ "$pkgdir"/usr/share/applications/
+  install -dm755 "${pkgdir}/usr/bin" "${pkgdir}/usr/lib" "$pkgdir"/usr/share/pixmaps/ "$pkgdir"/usr/share/applications/
   
   # copy zipfile to openarena
   mv "${srcdir}/openarena-${_openarenaver}" "${pkgdir}/usr/lib/openarena"
@@ -78,8 +80,11 @@ package() {
   install -Dm 644 "$srcdir"/openarena{,-server}.png "$pkgdir"/usr/share/pixmaps/
   install -Dm 644 "$srcdir"/openarena{,-server}.desktop "$pkgdir"/usr/share/applications/
   
+  # create bash-script for link.
+  install -Dm 755 "$srcdir"/openarena-runner.sh "$pkgdir"/usr/lib/openarena/openarena-runner.sh
+
   # create link to arch.
-  ln -s /usr/lib/openarena/openarena.$(uname -m) "${pkgdir}/usr/bin/openarena"
-  ln -s /usr/lib/openarena/oa_ded.$(uname -m) "${pkgdir}/usr/bin/openarena-server"
-  ln -s /usr/lib/openarena/oa_ded.$(uname -m) "${pkgdir}/usr/bin/oa_ded"
+  ln -s /usr/lib/openarena/openarena-runner.sh "${pkgdir}/usr/bin/openarena"
+  ln -s /usr/lib/openarena/openarena-runner.sh "${pkgdir}/usr/bin/openarena-server"
+  ln -s /usr/lib/openarena/openarena-runner.sh "${pkgdir}/usr/bin/oa_ded"
 }
