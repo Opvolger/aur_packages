@@ -18,19 +18,19 @@ pkgver() {
 }
 
 prepare() {
-    cd "${srcdir}/libxmp"
-    autoconf
+  cd "${srcdir}/libxmp"
+  autoconf
 }
 
 build() {
-    cd "${srcdir}/libxmp"
-    ./configure --prefix=/usr  
-    make
+  cd "${srcdir}/libxmp"
+  ./configure --prefix=/usr  
+  make
 }
 
 check() {
-    cd "${srcdir}/libxmp"
-    make check
+  cd "${srcdir}/libxmp"
+  make check
 }
 
 package() {
